@@ -6,7 +6,6 @@ node('maven-jdk-8') {
     checkout scm
     GIT_SHORT_CHANGESET = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
   }
-  withEnv(["PATH+MAVEN=${tool 'maven3'}/bin"]) {
     stage('Build') {
       sh "mvn package"
       junit '**/target/surefire-reports/*.xml'
@@ -16,7 +15,6 @@ node('maven-jdk-8') {
       sh "mvn verify -fn"
       junit '**/target/failsafe-reports/*.xml'
     }
-  }
 }
 node('docker') {
   stage('Docker Build') {
