@@ -1,7 +1,7 @@
 def DOCKER_IMG_BASENAME='demo-app'
 def GIT_SHORT_CHANGESET='latest'
 
-node('ssh-agent') {
+node('maven-jdk-8') {
   stage('Checkout code') {
     checkout scm
     GIT_SHORT_CHANGESET = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
